@@ -122,12 +122,20 @@ set rnu!
 let g:netrw_banner=0    " disable banner
 let g:netrw_liststyle=3    " tree view
 
-" List buffers and be ready to switch buffer
-noremap <leader>b :ls<cr>:b 
-" Find file in path
-noremap <leader>f :find 
 " Split vertically
 noremap <leader>v :vs<cr>
 
+" Grep for word and load found files to current buffers
 command! -nargs=* Gr args `grep -rwlI <args>`
+
+" CTAGS
+noremap <C-[> :pop<cr>
+
+" FZF
+set rtp+=~/.fzf
+noremap <leader>b :Buffers<CR>
+noremap <leader>f :Files<CR> 
+noremap <C-T> :GFiles<CR> 
+noremap <C-B> :History<CR>
+noremap <C-H> :History:<CR>
 
