@@ -129,7 +129,7 @@ noremap <leader>v :vs<cr>
 command! -nargs=* Gr args `grep -rwlI <args>`
 
 " CTAGS
-noremap <C-[> :pop<cr>
+noremap <C-p> :pop<cr>
 
 " FZF
 set rtp+=~/.fzf
