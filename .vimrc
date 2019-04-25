@@ -128,14 +128,10 @@ noremap <leader>v :vs<cr>
 " Grep for word and load found files to current buffers
 command! -nargs=* Gr args `grep -rwlI <args>`
 
-" CTAGS
-noremap <C-p> :pop<cr>
-
 " FZF
 set rtp+=~/.fzf
-noremap <leader>b :Buffers<CR>
 noremap <leader>f :Files<CR> 
-noremap <C-T> :GFiles<CR> 
-noremap <C-B> :History<CR>
-noremap <C-H> :History:<CR>
+noremap <C-n> :GFiles<CR> 
+noremap <C-j> :History<CR>
+noremap <C-h> :History:<CR>
 
