@@ -122,16 +122,13 @@ set rnu!
 let g:netrw_banner=0    " disable banner
 let g:netrw_liststyle=3    " tree view
 
-" Split vertically
-noremap <leader>v :vs<cr>
-
 " Grep for word and load found files to current buffers
-command! -nargs=* Gr args `grep -rwlI <args>`
+command! -nargs=* Gr args `grep --recursive --word-regexp --files-with-matches -I <args>`
 
 " FZF
 set rtp+=~/.fzf
-noremap <leader>f :Files<CR> 
-noremap <C-n> :GFiles<CR> 
 noremap <C-j> :History<CR>
+noremap <C-k> :GFiles<CR> 
+noremap <C-n> :Files<CR> 
 noremap <C-h> :History:<CR>
 
