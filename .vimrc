@@ -1,130 +1,139 @@
 " pathogen.vim for plugins
 execute pathogen#infect()
 
-" Set 'nocompatible' to ward off unexpected things that distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BASIC EDITING CONFIGURATION
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
- 
-" Attempt to determine the type of a file based on its name and possibly its
-" contents. This to allows intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
-filetype indent plugin on
- 
-" Enable syntax highlighting
-syntax on
-
-" 'Hidden' option allows to re-use the same window and switch from an unsaved
-" buffer without saving it first. Also allows to keep an undo history for multiple 
-" files when re-using the same window in this way. 
-" Using persistent undo also lets undo in multiple
-" files even in the same window, but is less efficient and is actually designed
-" for keeping undo history after closing Vim entirely. Vim will complain if you
-" try to quit without saving, and swap files will keep you safe if your computer
-" crashes.
+" allow unsaved background buffers and remember marks/undo for them
 set hidden
- 
-" Better command-line completion
-set wildmenu
- 
-" Show partial commands in the last line of the screen
-set showcmd
- 
-" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
-" mapping of <C-L> below)
-set hlsearch
- 
-" Use case insensitive search, except when using capital letters
-set ignorecase
-set smartcase
- 
-" Allow backspacing over autoindent, line breaks and start of insert action
-set backspace=indent,eol,start
- 
-" When opening a new line and no filetype-specific indenting is enabled, keep
-" the same indent as the line you're currently on. Useful for READMEs, etc.
+" remember more commands and search history
+set history=10000
+" insert 4 space characters whenewer the tab key is pressed
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+" when opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on
 set autoindent
- 
-" Stop certain movements from always going to the first character of a line.
-" While this behaviour deviates from that of Vi, it does what most users
-" coming from other editors would expect.
-set nostartofline
- 
-" Display the cursor position on the last line of the screen or in the status
+" always display the status line, even if only one window is displayed
+set laststatus=2
+" the cursor will briefly jump to the matchin brace when you insert one
+set showmatch
+set matchtime=3
+" highlight searches
+set hlsearch
+set incsearch
+" make searches case-sensitive only if they contain upper-case characters
+set ignorecase smartcase
+" set the command window height to 2 lines
+set cmdheight=2
+" jump to the first open window that contains the specified buffer (if there is one)
+set switchbuf=useopen
+" Show minimal width of new vertical split
+set winwidth=79
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
+" keep more context when scrolling off the end of a buffer
+set scrolloff=3
+" backups
+set backup
+set backupdir=~/.vim/tmp//,.
+set directory=~/.vim/tmp//,.
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+" display incomplete commands
+set showcmd
+" enable highlighting for syntax
+syntax on
+" attempt to determine the type of a file based on its name and possibly its
+" contents
+filetype indent plugin on
+" use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
+" make tab completion for files/buffers act like bash
+set wildmenu
+" Normally, Vim messes with iskeyword when you open a shell file. This can
+" leak out, polluting other file types even after a 'set ft=' change. This
+" variable prevents the iskeyword change so it can't hurt anyone.
+let g:sh_noisk=1
+" Turn folding off for real, hopefully
+set foldmethod=manual
+set nofoldenable
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like `.`.
+set nojoinspaces
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+" Stop SQL language files from doing unholy things to the C-c key
+let g:omni_sql_no_default_maps = 1
+" Diffs are shown side-by-side not above/below
+set diffopt=vertical
+" Always show the sign column
+set signcolumn=no
+" Write swap files to disk and trigger CursorHold event faster (default is
+" after 4000 ms of inactivity)
+:set updatetime=1000
+" Completion options.
+"   menu: use a popup menu
+"   preview: show more info in menu
+:set completeopt=menu,preview
+" display the cursor position on the last line of the screen or in the status
 " line of a window
 set ruler
- 
-" Always display the status line, even if only one window is displayed
-set laststatus=2
- 
-" Instead of failing a command because of unsaved changes, instead raise a
+" instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
 set confirm
- 
-" Use visual bell instead of beeping when doing something wrong
+" use visual bell instead of beeping when doing something wrong
 set visualbell
- 
 " And reset the terminal code for the visual bell. If visualbell is set, and
 " this line is also included, vim will neither flash nor beep. If visualbell
 " is unset, this does nothing.
 set t_vb=
- 
 " Enable use of the mouse for all modes
 set mouse=a
- 
-" Set the command window height to 2 lines, to avoid many cases of having to
-" "press <Enter> to continue"
-set cmdheight=2
- 
-" Display line numbers on the left
+" display line numbers on the left
 set number
- 
-" Quickly time out on keycodes, but never time out on mappings
+" set relative numbers
+set rnu!
+" quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
- 
-" Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<F11>
- 
-" Indentation settings for using 4 spaces instead of tabs.
-" Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
-set expandtab
- 
-" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
-" which is the default
-map Y y$
- 
-" Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-nnoremap <C-L> :nohl<CR><C-L>
- 
-" Set leader key
-:let mapleader = ","
-
-" Search recursive
+" use <F2> to toggle between 'paste' and 'nopaste'
+set pastetoggle=<F2>
+" netrw - disable banner
+let g:netrw_banner=0
+" search recursive
 set path+=**
-" Ignore some directories for find command
+" ignore some directories for find command
 set wildignore+=**/vendor/**
 set wildignore+=**/var/**
+" set leader key
+:let mapleader = ","
 
-" Edit or view files in same directory as current file
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MAPPINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" map Y to act like D and C, i.e. to yank until EOL, rather than act as yy
+nnoremap Y y$
+" map <C-L> (redraw screen) to also turn off search highlighting
+nnoremap <C-L> :nohl<CR><C-L>
+" edit or view files in same directory as current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-noremap <leader>e :edit %%
-noremap <leader>v :view %%
-
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
-
-" Set relative numbers
-set rnu!
-
-" Netrw options
-let g:netrw_banner=0    " disable banner
-let g:netrw_liststyle=3    " tree view
-
+" Paste grep command with default options
+nnoremap ,g :!grep -rwnI --color=always
 " Grep for word and load found files to current buffers
 command! -nargs=* Gr args `grep --recursive --word-regexp --files-with-matches -I <args>`
-
+" move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+" close all other splits
+nnoremap <leader>o :only<cr>
 " FZF
 set rtp+=~/.fzf
 noremap <C-j> :History<CR>
@@ -132,3 +141,97 @@ noremap <C-k> :GFiles<CR>
 noremap <C-n> :Files<CR> 
 noremap <C-h> :History:<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AUTOCOMMANDS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup vimrcEx
+	" clear all autocmds in the group
+	autocmd!
+	" jump to last cursor position unless it's invalid or in an event handler
+	autocmd BufReadPost *
+		\ if line("'\"") > 0 && line("'\"") <= line("$") |
+		\   exe "normal g`\"" |
+		\ endif
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BufOnly.vim  -  delete all the buffers except the current/named buffer.
+" Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
+"
+" Usage:
+" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
+" Without any arguments the current buffer is kept.  With an argument the
+" buffer name/number supplied is kept.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! -nargs=? -complete=buffer -bang Bonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BOnly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang Bufonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BufOnly
+    \ :call BufOnly('<args>', '<bang>')
+
+function! BufOnly(buffer, bang)
+	if a:buffer == ''
+		" No buffer provided, use the current buffer.
+		let buffer = bufnr('%')
+	elseif (a:buffer + 0) > 0
+		" A buffer number was provided.
+		let buffer = bufnr(a:buffer + 0)
+	else
+		" A buffer name was provided.
+		let buffer = bufnr(a:buffer)
+	endif
+
+	if buffer == -1
+		echohl ErrorMsg
+		echomsg "No matching buffer for" a:buffer
+		echohl None
+		return
+	endif
+
+	let last_buffer = bufnr('$')
+
+	let delete_count = 0
+	let n = 1
+	while n <= last_buffer
+		if n != buffer && buflisted(n)
+			if a:bang == '' && getbufvar(n, '&modified')
+				echohl ErrorMsg
+				echomsg 'No write since last change for buffer'
+							\ n '(add ! to override)'
+				echohl None
+			else
+				silent exe 'bdel' . a:bang . ' ' . n
+				if ! buflisted(n)
+					let delete_count = delete_count+1
+				endif
+			endif
+		endif
+		let n = n+1
+	endwhile
+
+	if delete_count == 1
+		echomsg delete_count "buffer deleted"
+	elseif delete_count > 1
+		echomsg delete_count "buffers deleted"
+	endif
+
+endfunction
+
+noremap ,bo :BufOnly<cr>
