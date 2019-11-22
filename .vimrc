@@ -2,6 +2,8 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'elixir-editors/vim-elixir'
+Plug 'lumiliet/vim-twig'
 
 call plug#end()
 
@@ -75,8 +77,6 @@ set autoread
 let g:omni_sql_no_default_maps = 1
 " Diffs are shown side-by-side not above/below
 set diffopt=vertical
-" Always show the sign column
-set signcolumn=no
 " Write swap files to disk and trigger CursorHold event faster (default is
 " after 4000 ms of inactivity)
 :set updatetime=1000
