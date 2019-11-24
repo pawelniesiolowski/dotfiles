@@ -145,6 +145,12 @@ noremap <C-k> :GFiles<CR>
 noremap <C-n> :Files<CR> 
 noremap <C-h> :History:<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM TEMPLATES
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap ,tnsk :-1read $HOME/.vim/vim_templates/.skeleton.work.php.nsk<CR>10j<S-a>
+nnoremap ,ttestnsk :-1read $HOME/.vim/vim_templates/.skeleton.work.php.nsk.test<CR>12j<S-w>i
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTOCOMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
