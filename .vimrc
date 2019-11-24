@@ -4,6 +4,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'lumiliet/vim-twig'
+Plug 'arnaud-lb/vim-php-namespace'
 
 call plug#end()
 
@@ -144,6 +145,13 @@ noremap <C-j> :History<CR>
 noremap <C-k> :GFiles<CR> 
 noremap <C-n> :Files<CR> 
 noremap <C-h> :History:<CR>
+" PHP namespaces with vim-php-namespaces mappings
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM TEMPLATES
