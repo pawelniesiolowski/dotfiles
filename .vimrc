@@ -1,10 +1,9 @@
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'lumiliet/vim-twig'
-Plug 'arnaud-lb/vim-php-namespace'
 
 call plug#end()
 
@@ -133,18 +132,18 @@ nnoremap ,g :!grep -rwnI --color=always
 " Grep for word and load found files to current buffers
 command! -nargs=* Gr args `grep --recursive --word-regexp --files-with-matches -I <args>`
 " move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-k> <c-w>k
+" nnoremap <c-h> <c-w>h
+" nnoremap <c-l> <c-w>l
 " close all other splits
 nnoremap <leader>o :only<cr>
 " FZF
 set rtp+=~/.fzf
-noremap <C-j> :History<CR>
-noremap <C-k> :GFiles<CR> 
-noremap <C-n> :Files<CR> 
-noremap <C-h> :History:<CR>
+noremap <C-h> :History<CR>
+noremap <C-n> :GFiles<CR> 
+noremap <C-k> :Files<CR> 
+noremap <C-j> :History:<CR>
 " PHP namespaces with vim-php-namespaces mappings
 function! IPhpInsertUse()
     call PhpInsertUse()
