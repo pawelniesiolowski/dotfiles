@@ -4,6 +4,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'lumiliet/vim-twig'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'ycm-core/YouCompleteMe'
 
 call plug#end()
 
@@ -252,3 +254,12 @@ function! BufOnly(buffer, bang)
 endfunction
 
 noremap ,bo :BufOnly<cr>
+
+" PYTHON CONFIGURATION
+set textwidth=79
+set fileformat=unix
+set encoding=utf-8
+
+" Setup for YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
