@@ -113,6 +113,8 @@ set path+=**
 " ignore some directories for find command
 set wildignore+=**/vendor/**
 set wildignore+=**/var/**
+" don't search in included files
+setglobal complete-=i
 " set leader key
 :let mapleader = ","
 

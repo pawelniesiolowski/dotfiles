@@ -13,6 +13,3 @@ alias gr='grep -rwnI'
 
 # create ctags
 alias ct='ctags -R --exclude=.git --exclude=vendor --exclude=bin --exclude=var --exclude=public'
-
-# source ~/.private_bash_aliases
-# source ~/.job_bash_aliases
