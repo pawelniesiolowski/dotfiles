@@ -20,6 +20,11 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+
+autocmd Filetype html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype typescript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
 " when opening a new line and no filetype-specific indenting is enabled, keep
 " the same indent as the line you're currently on
 set autoindent
