@@ -4,6 +4,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'lumiliet/vim-twig'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
