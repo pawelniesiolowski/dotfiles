@@ -5,6 +5,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'lumiliet/vim-twig'
 Plug 'tpope/vim-commentary'
+Plug 'posva/vim-vue'
 
 call plug#end()
 
