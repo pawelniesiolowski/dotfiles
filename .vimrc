@@ -6,6 +6,9 @@ Plug 'elixir-editors/vim-elixir'
 Plug 'lumiliet/vim-twig'
 Plug 'tpope/vim-commentary'
 Plug 'posva/vim-vue'
+Plug 'preservim/nerdtree'
+Plug 'ronakg/quickr-preview.vim'
+Plug 'arnaud-lb/vim-php-namespace'
 
 call plug#end()
 
@@ -125,7 +128,7 @@ set wildignore+=**/var/**
 " don't search in included files
 setglobal complete-=i
 " set leader key
-:let mapleader = ","
+let mapleader=" "
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPPINGS
@@ -138,10 +141,6 @@ nnoremap <C-L> :nohl<CR><C-L>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
-" Paste grep command with default options
-nnoremap ,g :!grep -rwnI --color=always
-" Grep for word and load found files to current buffers
-command! -nargs=* Gr args `grep --recursive --word-regexp --files-with-matches -I <args>`
 " move around splits with <c-hjkl>
 " nnoremap <c-j> <c-w>j
 " nnoremap <c-k> <c-w>k
@@ -149,25 +148,39 @@ command! -nargs=* Gr args `grep --recursive --word-regexp --files-with-matches -
 " nnoremap <c-l> <c-w>l
 " close all other splits
 nnoremap <leader>o :only<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=~/.fzf
 noremap <C-h> :History<CR>
 noremap <C-n> :GFiles<CR> 
 noremap <C-k> :Files<CR> 
 noremap <C-j> :History:<CR>
-" PHP namespaces with vim-php-namespaces mappings
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
-endfunction
-autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
-autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM TEMPLATES
+" PHP namespaces with vim-php-namespaces mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap ,tnsk :-1read $HOME/.vim/vim_templates/.skeleton.work.php.nsk<CR>10j<S-a>
-nnoremap ,ttestnsk :-1read $HOME/.vim/vim_templates/.skeleton.work.php.nsk.test<CR>12j<S-w>i
+autocmd FileType php nnoremap <leader>u :call PhpInsertUse()<CR>
+autocmd FileType php nnoremap <Leader>s :call PhpSortUse()<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERD Tree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>f<tab> :NERDTreeFind<CR>
+nnoremap <leader><tab> :NERDTreeToggle<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" QUICK FIX WINDOW
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>o :copen<cr>
+nnoremap <leader>c :cclose<cr>
+nnoremap <leader>g :grep --recursive --fixed-strings '<C-r>"'<space>
+
+let g:quickr_preview_position = 'above'
+let g:quickr_preview_on_cursor = 1
+let g:quickr_preview_exit_on_enter = 1
+let g:quickr_preview_modifiable = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTOCOMMANDS
@@ -181,20 +194,6 @@ augroup vimrcEx
 		\   exe "normal g`\"" |
 		\ endif
 augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-map <leader>n :call RenameFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BufOnly.vim  -  delete all the buffers except the current/named buffer.
