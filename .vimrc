@@ -17,9 +17,7 @@ Plug 'preservim/nerdtree'
 Plug 'ronakg/quickr-preview.vim'
 Plug 'tpope/vim-commentary'
 
-Plug 'elixir-editors/vim-elixir'
-Plug 'lumiliet/vim-twig'
-Plug 'posva/vim-vue'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -30,7 +28,7 @@ set nocompatible
 " enable highlighting for syntax
 syntax on
 " attempt to determine the type of a file based on its name and possibly its contents
-filetype indent plugin on
+filetype plugin indent on
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 " remember more commands and search history
@@ -48,6 +46,7 @@ set shiftwidth=4
 autocmd Filetype html setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype html.twig setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype vue setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype typescript setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 " when opening a new line and no filetype-specific indenting is enabled, keep
