@@ -16,6 +16,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'ronakg/quickr-preview.vim'
 Plug 'tpope/vim-commentary'
+Plug 'arnaud-lb/vim-php-namespace'
 
 Plug 'sheerun/vim-polyglot'
 
@@ -163,6 +164,18 @@ let g:quickr_preview_position = 'above'
 let g:quickr_preview_on_cursor = 1
 let g:quickr_preview_exit_on_enter = 1
 let g:quickr_preview_modifiable = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM PHP NAMESPACE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+
+let g:php_namespace_sort_after_insert = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTOCOMMANDS
